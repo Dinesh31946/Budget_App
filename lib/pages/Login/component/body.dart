@@ -2,7 +2,6 @@ import 'package:budget_app/pages/Login/component/background.dart';
 import 'package:budget_app/pages/Login/component/rounded_button.dart';
 import 'package:budget_app/pages/Login/component/rounded_input_field.dart';
 import 'package:budget_app/pages/Login/component/rounded_password_field.dart';
-import 'package:budget_app/pages/Login/component/text_field_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
