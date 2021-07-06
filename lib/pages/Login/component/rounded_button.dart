@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
+  final VoidCallback press;
   const RoundedButton({
     Key? key,
     required this.text,
+    required this.press,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class RoundedButton extends StatelessWidget {
             style: TextButton.styleFrom(
                 backgroundColor: Colors.indigo,
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100)),
-            onPressed: () {},
+            onPressed: press,
             child: Text(
               text,
               style: TextStyle(

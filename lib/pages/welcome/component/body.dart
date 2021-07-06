@@ -1,4 +1,5 @@
 import 'package:budget_app/pages/Login/login_page.dart';
+import 'package:budget_app/pages/SignUp/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -78,7 +79,14 @@ class Body extends StatelessWidget {
                     backgroundColor: Colors.indigo[200],
                     padding:
                         EdgeInsets.symmetric(vertical: 15, horizontal: 96)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return SignUpPage();
+                    }),
+                  );
+                },
                 child: Text(
                   "SIGN UP",
                   style: TextStyle(

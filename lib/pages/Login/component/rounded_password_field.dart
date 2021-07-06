@@ -1,17 +1,21 @@
-import 'package:budget_app/pages/Login/component/text_field_container.dart';
 import 'package:flutter/material.dart';
+
+import 'package:budget_app/pages/Login/component/text_field_container.dart';
 
 class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
+  final TextEditingController controller;
   const RoundedPasswordField({
     Key? key,
     required this.onChanged,
+    required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
+        controller: controller,
         obscureText: true,
         onChanged: onChanged,
         decoration: InputDecoration(
@@ -28,6 +32,14 @@ class RoundedPasswordField extends StatelessWidget {
           ),
           border: InputBorder.none,
         ),
+        validator: (value) {
+          if (value != null && value.isEmpty) {
+            return "Password can't be empty";
+          }
+          if (value != 'admin') {
+            return "Please enter correct password";
+          }
+        },
       ),
     );
   }
