@@ -5,6 +5,7 @@ import 'package:budget_app/pages/Login/component/text_field_container.dart';
 class RoundedInputFields extends StatelessWidget {
   final String hintText;
   final IconData icon;
+  final FormFieldValidator validate;
   final ValueChanged<String> onChanged;
   final TextEditingController controller;
   const RoundedInputFields({
@@ -13,6 +14,7 @@ class RoundedInputFields extends StatelessWidget {
     this.icon = Icons.person,
     required this.onChanged,
     required this.controller,
+    required this.validate,
   }) : super(key: key);
 
   @override
@@ -30,14 +32,7 @@ class RoundedInputFields extends StatelessWidget {
           hintText: hintText,
           border: InputBorder.none,
         ),
-        validator: (value) {
-          if (value != null && value.isEmpty) {
-            return "username can not be empty";
-          }
-          if (value != 'admin@gmail.com') {
-            return "Please enter correct email";
-          }
-        },
+        validator: validate,
       ),
     );
   }

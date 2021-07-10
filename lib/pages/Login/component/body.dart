@@ -1,8 +1,8 @@
 import 'package:budget_app/pages/Login/component/already_have_account_text.dart';
 import 'package:budget_app/pages/Login/component/background.dart';
-import 'package:budget_app/pages/Login/component/rounded_button.dart';
-import 'package:budget_app/pages/Login/component/rounded_input_field.dart';
-import 'package:budget_app/pages/Login/component/rounded_password_field.dart';
+import 'package:budget_app/pages/components/rounded_button.dart';
+import 'package:budget_app/pages/components/rounded_input_field.dart';
+import 'package:budget_app/pages/components/rounded_password_field.dart';
 import 'package:budget_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,10 +53,26 @@ class _BodyState extends State<Body> {
                       controller: email,
                       hintText: 'Your Email',
                       onChanged: (value) {},
+                      validate: (value) {
+                        if (value != null && value.isEmpty) {
+                          return "username can not be empty";
+                        }
+                        if (value != 'admin@gmail.com') {
+                          return "Please enter correct email";
+                        }
+                      },
                     ),
                     RoundedPasswordField(
                       controller: password,
                       onChanged: (value) {},
+                      validate: (value) {
+                        if (value != null && value.isEmpty) {
+                          return "Password can't be empty";
+                        }
+                        if (value != 'admin') {
+                          return "Please enter correct password";
+                        }
+                      },
                     ),
                     RoundedButton(
                       text: "LOGIN",

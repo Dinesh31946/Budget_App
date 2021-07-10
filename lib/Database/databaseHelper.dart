@@ -3,40 +3,62 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DB {
-  Future<Database> initDB() async {
-    String path = await getDatabasesPath();
+  static final DB instance = DB._init();
 
-    return openDatabase(
-      join(path, "budget.db"),
-      onCreate: (database, version) async {
-        await database.execute('''
+  static Database? _database;
+
+  DB._init();
+
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+
+    _database = await _initDB('budget.db');
+    return _database!;
+  }
+
+  Future<Database> _initDB(String filePath) async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, filePath);
+
+    return await openDatabase(path,
+        version: 1, onCreate: _onCreate, onConfigure: _onConfigure);
+  }
+
+  Future _onCreate(Database db, int version) async {
+    await db.execute('''
         CREATE TABLE $tableCategory(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
-          FOREIGN KEY (parentId) REFERENCES $tableCategory (id) ON DELETE CASCADE ON UPDATE CASCADE,
-          createdTime DATETIME DEFAULT (cast(strftime('%s','now') as int))
+          desc TEXT NOT NULL,
+          parentId INTEGER,
+          FOREIGN KEY(parentId) REFERENCES $tableCategory (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+          isActive BOOLEAN NOT NULL,
+          createdTime DATETIME DEFAULT (cast(strftime('%s','now') as int)),
+          createdBy TEXT NOT NULL,
         )
-        ''');
-      },
-      version: 1,
-    );
+      ''');
+  }
+
+  Future _onConfigure(Database db) async {
+    // Add support for cascade delete
+    await db.execute("PRAGMA foreign_keys = ON");
   }
 
   //Custom Category Functions
   Future<bool> insertCategory(CategoryModel categoryModel) async {
-    final Database db = await initDB();
+    final db = await instance.database;
     db.insert("Categories", categoryModel.toMap());
     return true;
   }
 
   Future<List<CategoryModel>> getCategory() async {
-    final Database db = await initDB();
+    final db = await instance.database;
     final List<Map<String, Object?>> categories = await db.query("Categories");
     return categories.map((e) => CategoryModel.fromMap(e)).toList();
   }
 
   Future<int> updateCategory(CategoryModel categoryModel) async {
-    final Database db = await initDB();
+    final db = await instance.database;
 
     return db.update(
       tableCategory,
@@ -47,7 +69,7 @@ class DB {
   }
 
   Future<int> deleteCategory(int id) async {
-    final Database db = await initDB();
+    final db = await instance.database;
 
     return await db.delete(
       tableCategory,
@@ -57,7 +79,7 @@ class DB {
   }
 
   Future close() async {
-    final Database db = await initDB();
+    final db = await instance.database;
 
     db.close();
   }
