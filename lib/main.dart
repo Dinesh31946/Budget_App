@@ -1,4 +1,6 @@
-import 'package:budget_app/pages/Home/home_page.dart';
+import 'package:budget_app/pages/Categories/categoriesPage.dart';
+import 'package:budget_app/pages/Home/homePage.dart';
+import 'package:budget_app/pages/Income/incomePage.dart';
 import 'package:budget_app/pages/Login/login_page.dart';
 import 'package:budget_app/pages/SignUp/sign_up_page.dart';
 import 'package:budget_app/utils/routes.dart';
@@ -20,11 +22,14 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.indigo,
         fontFamily: GoogleFonts.lato().fontFamily,
       ),
+      initialRoute: MyRoutes.loginRoute,
       routes: {
         "/": (context) => WelcomePage(),
         MyRoutes.loginRoute: (context) => LoginPage(),
         MyRoutes.signUpRoute: (context) => SignUpPage(),
         MyRoutes.homeRoute: (context) => HomePage(),
+        MyRoutes.categoryRoute: (context) => CategoryPage(),
+        MyRoutes.incomeRoute: (context) => IncomePage(),
       },
     );
   }

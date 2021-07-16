@@ -1,10 +1,10 @@
 final String tableCategory = 'category';
 
 class CategoryModel {
-  final int? id;
-  final String name;
-  final String desc;
-  final int? parentId;
+  int? id;
+  String name;
+  String desc;
+  int? parentId;
   final bool isActive;
   final DateTime createdTime;
   final String createdBy;

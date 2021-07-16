@@ -16,7 +16,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController email = TextEditingController();
+  TextEditingController username = TextEditingController();
 
   TextEditingController password = TextEditingController();
 
@@ -50,15 +50,15 @@ class _BodyState extends State<Body> {
                 child: Column(
                   children: [
                     RoundedInputFields(
-                      controller: email,
-                      hintText: 'Your Email',
+                      controller: username,
+                      hintText: 'Your Username',
                       onChanged: (value) {},
                       validate: (value) {
                         if (value != null && value.isEmpty) {
                           return "username can not be empty";
                         }
-                        if (value != 'admin@gmail.com') {
-                          return "Please enter correct email";
+                        if (value != 'admin') {
+                          return "Please enter correct username";
                         }
                       },
                     ),

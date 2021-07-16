@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DB {
+  DB();
   static final DB instance = DB._init();
 
   static Database? _database;
@@ -30,11 +31,11 @@ class DB {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
           desc TEXT NOT NULL,
-          parentId INTEGER,
-          FOREIGN KEY(parentId) REFERENCES $tableCategory (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+          `parentId` INTEGER,
           isActive BOOLEAN NOT NULL,
           createdTime DATETIME DEFAULT (cast(strftime('%s','now') as int)),
           createdBy TEXT NOT NULL,
+          FOREIGN KEY(parentId) REFERENCES $tableCategory (id) ON DELETE NO ACTION ON UPDATE NO ACTION
         )
       ''');
   }
@@ -47,17 +48,25 @@ class DB {
   //Custom Category Functions
   Future<bool> insertCategory(CategoryModel categoryModel) async {
     final db = await instance.database;
-    db.insert("Categories", categoryModel.toMap());
+    db.insert("category", categoryModel.toMap());
     return true;
   }
 
   Future<List<CategoryModel>> getCategory() async {
     final db = await instance.database;
-    final List<Map<String, Object?>> categories = await db.query("Categories");
+    final List<Map<String, Object?>> categories = await db.query("category");
     return categories.map((e) => CategoryModel.fromMap(e)).toList();
   }
 
-  Future<int> updateCategory(CategoryModel categoryModel) async {
+  // //get category id and name data
+  // Future<List<CategoryModel>> getName() async {
+  //   final db = await instance.database;
+  //   final List<Map<String, Object?>> categories =
+  //       await db.query("SELECT id, name FROM $tableCategory");
+  //   return categories.map((e) => CategoryModel.fromMap(e)).toList();
+  // }
+
+  Future<int> updateCategory(CategoryModel categoryModel, int id) async {
     final db = await instance.database;
 
     return db.update(
