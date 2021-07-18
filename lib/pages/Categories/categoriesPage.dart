@@ -2,7 +2,7 @@ import 'package:budget_app/Database/databaseHelper.dart';
 import 'package:budget_app/model/categoryModel.dart';
 import 'package:budget_app/pages/Categories/components/datacard.dart';
 import 'package:budget_app/utils/routes.dart';
-import 'package:budget_app/widgets/drawer.dart';
+import 'package:budget_app/widgets/drawer/drawer.dart';
 import 'package:flutter/material.dart';
 
 class CategoryPage extends StatefulWidget {

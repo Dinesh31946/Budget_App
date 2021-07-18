@@ -1,4 +1,4 @@
-import 'package:budget_app/widgets/drawer.dart';
+import 'package:budget_app/widgets/drawer/drawer.dart';
 import 'package:flutter/material.dart';
 
 class IncomePage extends StatefulWidget {

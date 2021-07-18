@@ -29,19 +29,19 @@ class _BodyState extends State<Body> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "LOGIN",
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5,
-                  fontFamily: GoogleFonts.aBeeZee().fontFamily,
-                ),
-              ),
+              // Text(
+              //   "LOGIN",
+              //   style: TextStyle(
+              //     fontSize: 23,
+              //     fontWeight: FontWeight.bold,
+              //     letterSpacing: 1.5,
+              //     fontFamily: GoogleFonts.aBeeZee().fontFamily,
+              //   ),
+              // ),
               Padding(
-                padding: const EdgeInsets.only(right: 18),
+                padding: const EdgeInsets.only(bottom: 30, top: 25),
                 child: SvgPicture.asset(
-                  "assets/images/login_page.svg",
+                  "assets/images/login_img.svg",
                   width: size.width * 0.9,
                 ),
               ),
