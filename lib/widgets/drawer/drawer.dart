@@ -14,6 +14,7 @@ class MyDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            decoration: BoxDecoration(color: Colors.indigo[600]),
             padding: EdgeInsets.zero,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -24,11 +25,14 @@ class MyDrawer extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          color: Colors.indigo[600],
+                          color: Colors.white,
                         )),
+                    SizedBox(
+                      height: 3,
+                    ),
                     Text(
                       "Monthly Budget Planner",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   ],
                 ),
@@ -37,12 +41,15 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.indigo[600],
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    primary: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
                     textStyle: TextStyle(fontSize: 15),
                   ),
                   onPressed: () {},
-                  child: Text("Create a budget"),
+                  child: Text(
+                    "Create a budget",
+                    style: TextStyle(color: Colors.black),
+                  ),
                 )
               ],
             ),

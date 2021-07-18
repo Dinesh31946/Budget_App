@@ -6,7 +6,6 @@ import 'package:budget_app/pages/components/rounded_password_field.dart';
 import 'package:budget_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Body extends StatefulWidget {
   @override

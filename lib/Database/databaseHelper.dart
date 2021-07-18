@@ -35,7 +35,7 @@ class DB {
           isActive BOOLEAN NOT NULL,
           createdTime DATETIME DEFAULT (cast(strftime('%s','now') as int)),
           createdBy TEXT NOT NULL,
-          FOREIGN KEY(parentId) REFERENCES $tableCategory (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+          FOREIGN KEY(parentId) REFERENCES $tableCategory (id) ON DELETE CASCADE ON UPDATE CASCADE
         )
       ''');
   }
@@ -58,13 +58,13 @@ class DB {
     return categories.map((e) => CategoryModel.fromMap(e)).toList();
   }
 
-  // //get category id and name data
-  // Future<List<CategoryModel>> getName() async {
-  //   final db = await instance.database;
-  //   final List<Map<String, Object?>> categories =
-  //       await db.query("SELECT id, name FROM $tableCategory");
-  //   return categories.map((e) => CategoryModel.fromMap(e)).toList();
-  // }
+  // //get parent category data
+  Future<List<CategoryModel>> getParentData() async {
+    final db = await instance.database;
+    final List<Map<String, Object?>> parentData =
+        await db.query("category", where: 'id = parentId');
+    return parentData.map((e) => CategoryModel.fromMap(e)).toList();
+  }
 
   Future<int> updateCategory(CategoryModel categoryModel, int id) async {
     final db = await instance.database;
