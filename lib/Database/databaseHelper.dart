@@ -58,12 +58,21 @@ class DB {
     return categories.map((e) => CategoryModel.fromMap(e)).toList();
   }
 
-  // //get parent category data
-  Future<List<CategoryModel>> getParentData() async {
+  // Future<List<CategoryModel>> getParentCategory(int id) async {
+  //   final db = await instance.database;
+  //   final List<Map<String, Object?>> parentCategory =
+  //       await db.query("SELECT * FROM category WHERE parentId = id");
+  //   return parentCategory.map((e) => CategoryModel.fromMap(e)).toList();
+  // }
+
+  Future<List<CategoryModel>> getParentCategory(
+      CategoryModel categoryModel, int id) async {
     final db = await instance.database;
-    final List<Map<String, Object?>> parentData =
-        await db.query("category", where: 'id = parentId');
-    return parentData.map((e) => CategoryModel.fromMap(e)).toList();
+    final List<Map<String, Object?>> parentCategory = await db.query(
+        tableCategory,
+        where: 'parentId = ?',
+        whereArgs: [categoryModel.id]);
+    return parentCategory.map((e) => CategoryModel.fromMap(e)).toList();
   }
 
   Future<int> updateCategory(CategoryModel categoryModel, int id) async {
