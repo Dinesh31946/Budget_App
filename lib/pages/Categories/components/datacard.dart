@@ -26,12 +26,19 @@ class _DataCardState extends State<DataCard> {
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Card(
         child: ExpansionTile(
-          title: Text(
-            widget.data.name,
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.indigo[600]),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.data.name,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.indigo[600]),
+              ),
+              Text(widget.data.desc,
+                  style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+            ],
           ),
           children: [
             Padding(
@@ -96,12 +103,20 @@ class _DataCardState extends State<DataCard> {
             content: Text("Are you sure to delete this category?"),
             actions: [
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(30, 30), primary: Color(10)),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Cancel"),
+              ),
+              ElevatedButton(
                 style: ElevatedButton.styleFrom(minimumSize: Size(30, 30)),
                 onPressed: () {
                   widget.delete(widget.index);
                 },
                 child: Text("Delete"),
-              )
+              ),
             ],
           );
         });

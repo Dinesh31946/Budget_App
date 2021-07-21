@@ -45,22 +45,6 @@ class _DrawrListState extends State<DrawrList> {
           ),
         ),
         ListTile(
-          visualDensity: VisualDensity(horizontal: -2, vertical: 1),
-          leading: Icon(Icons.list_alt_outlined, color: Colors.indigo[600]),
-          title: Text(
-            " Expenses",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.indigo[600],
-            ),
-          ),
-          onTap: () async {
-            Navigator.pushNamed(context, MyRoutes.categoryRoute);
-          },
-          trailing: Icon(Icons.arrow_forward_ios, size: 16),
-        ),
-        ListTile(
           leading: Icon(Icons.account_balance_wallet_rounded,
               color: Colors.indigo[600]),
           title: Text(
@@ -73,6 +57,22 @@ class _DrawrListState extends State<DrawrList> {
           ),
           onTap: () async {
             Navigator.pushNamed(context, MyRoutes.incomeRoute);
+          },
+          trailing: Icon(Icons.arrow_forward_ios, size: 16),
+        ),
+        ListTile(
+          visualDensity: VisualDensity(horizontal: -2, vertical: 1),
+          leading: Icon(Icons.list_alt_outlined, color: Colors.indigo[600]),
+          title: Text(
+            " Expenses Categories",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.indigo[600],
+            ),
+          ),
+          onTap: () async {
+            Navigator.pushNamed(context, MyRoutes.categoryRoute);
           },
           trailing: Icon(Icons.arrow_forward_ios, size: 16),
         ),
@@ -92,7 +92,7 @@ class _DrawrListState extends State<DrawrList> {
         ListTile(
           leading: Icon(Icons.calendar_today, color: Colors.indigo[600]),
           title: Text(
-            "July Budget",
+            "My Budget",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,

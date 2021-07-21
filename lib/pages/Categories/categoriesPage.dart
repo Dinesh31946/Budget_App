@@ -77,8 +77,9 @@ class _CategoryPageState extends State<CategoryPage> {
           return AlertDialog(
             contentPadding: EdgeInsets.all(15),
             content: Container(
-              height: 200,
-              width: 400,
+              margin: EdgeInsets.zero,
+              // height: 200,
+              width: double.infinity,
               child: SingleChildScrollView(
                 child: Form(
                   key: _formKey,
@@ -136,28 +137,45 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
             ),
             actions: [
-              TextButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    CategoryModel dataLocal = CategoryModel(
-                      name: nameController.text,
-                      desc: descController.text,
-                      parentId: _selectedValue,
-                      createdTime: DateTime.now(),
-                      createdBy: 'Admin',
-                    );
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      nameController.clear();
+                      descController.clear();
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.grey[800]),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        CategoryModel dataLocal = CategoryModel(
+                          name: nameController.text,
+                          desc: descController.text,
+                          parentId: _selectedValue,
+                          createdTime: DateTime.now(),
+                          createdBy: 'Admin',
+                        );
 
-                    db.insertCategory(dataLocal);
-                    dataLocal.id = categories[categories.length - 1].id! + 1;
-                    setState(() {
-                      categories.add(dataLocal);
-                    });
-                    nameController.clear();
-                    descController.clear();
-                    Navigator.pushNamed(context, MyRoutes.categoryRoute);
-                  }
-                },
-                child: Text("Save"),
+                        db.insertCategory(dataLocal);
+                        dataLocal.id =
+                            categories[categories.length - 1].id! + 1;
+                        setState(() {
+                          categories.add(dataLocal);
+                        });
+                        nameController.clear();
+                        descController.clear();
+                        Navigator.pushNamed(context, MyRoutes.categoryRoute);
+                      }
+                    },
+                    child: Text("Save"),
+                  ),
+                ],
               )
             ],
           );
@@ -179,7 +197,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   child: Column(
                     children: [
                       Text(
-                        "Add Category",
+                        "Update Category",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -230,19 +248,38 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
             ),
             actions: [
-              TextButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    CategoryModel newData = categories[currentIndex];
-                    newData.name = nameController.text;
-                    newData.desc = nameController.text;
-                    newData.parentId = _selectedValue;
-                    db.updateCategory(newData, newData.id!);
-                    setState(() {});
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text("Update"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      nameController.clear();
+                      descController.clear();
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.grey[800]),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        CategoryModel newData = categories[currentIndex];
+                        newData.name = nameController.text;
+                        newData.desc = descController.text;
+                        newData.parentId = _selectedValue;
+                        db.updateCategory(newData, newData.id!);
+                        setState(() {});
+
+                        nameController.clear();
+                        descController.clear();
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Text("Update"),
+                  ),
+                ],
               )
             ],
           );
