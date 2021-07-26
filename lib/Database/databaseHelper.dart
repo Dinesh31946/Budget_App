@@ -1,4 +1,5 @@
 import 'package:budget_app/model/categoryModel.dart';
+import 'package:budget_app/model/incomeModel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -36,7 +37,18 @@ class DB {
           createdTime DATETIME DEFAULT (cast(strftime('%s','now') as int)),
           createdBy TEXT NOT NULL,
           FOREIGN KEY(parentId) REFERENCES $tableCategory (id) ON DELETE CASCADE ON UPDATE CASCADE
-        )
+        );
+        ''');
+
+    await db.execute('''
+        CREATE TABLE $tableIncome(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          desc TEXT,
+          isActive BOOLEAN NOT NULL,
+          createdTime DATETIME DEFAULT (cast(strftime('%s','now') as int)),
+          createdBy TEXT NOT NULL
+        );
       ''');
   }
 
@@ -54,25 +66,24 @@ class DB {
 
   Future<List<CategoryModel>> getCategory() async {
     final db = await instance.database;
-    final List<Map<String, Object?>> categories = await db.query("category");
+    // final List<Map<String, Object?>> categories = await db.query("category");
+    final List<Map<String, Object?>> categories =
+        await db.rawQuery("SELECT * FROM category WHERE parentId IS NULL");
     return categories.map((e) => CategoryModel.fromMap(e)).toList();
   }
 
-  // Future<List<CategoryModel>> getParentCategory(int id) async {
+  // Future<List<CategoryModel>> getSubCategory() async {
   //   final db = await instance.database;
-  //   final List<Map<String, Object?>> parentCategory =
-  //       await db.query("SELECT * FROM category WHERE parentId = id");
-  //   return parentCategory.map((e) => CategoryModel.fromMap(e)).toList();
+  //   final List<Map<String, Object?>> subCategory =
+  //       await db.query("$tableCategory WHERE parentId is NOT NULL");
+  //   return subCategory.map((e) => CategoryModel.fromMap(e)).toList();
   // }
 
-  Future<List<CategoryModel>> getParentCategory(
-      CategoryModel categoryModel, int id) async {
+  Future<List<CategoryModel>> getSubCategory(int index) async {
     final db = await instance.database;
-    final List<Map<String, Object?>> parentCategory = await db.query(
-        tableCategory,
-        where: 'parentId = ?',
-        whereArgs: [categoryModel.id]);
-    return parentCategory.map((e) => CategoryModel.fromMap(e)).toList();
+    final List<Map<String, Object?>> subCategory =
+        await db.rawQuery("SELECT * FROM category WHERE parentId = $index");
+    return subCategory.map((e) => CategoryModel.fromMap(e)).toList();
   }
 
   Future<int> updateCategory(CategoryModel categoryModel, int id) async {
@@ -91,6 +102,40 @@ class DB {
 
     return await db.delete(
       tableCategory,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  //Custom Income CRUD Methods
+  Future<bool> insertIncome(IncomeModel incomeModel) async {
+    final db = await instance.database;
+    db.insert(tableIncome, incomeModel.toMap());
+    return true;
+  }
+
+  Future<List<IncomeModel>> getIncome() async {
+    final db = await instance.database;
+    final List<Map<String, Object?>> income = await db.query(tableIncome);
+    return income.map((e) => IncomeModel.fromMap(e)).toList();
+  }
+
+  Future<int> updateIncome(IncomeModel incomeModel, int id) async {
+    final db = await instance.database;
+
+    return db.update(
+      tableIncome,
+      incomeModel.toMap(),
+      where: 'id = ?',
+      whereArgs: [incomeModel.id],
+    );
+  }
+
+  Future<int> deleteIncome(int id) async {
+    final db = await instance.database;
+
+    return await db.delete(
+      tableIncome,
       where: 'id = ?',
       whereArgs: [id],
     );

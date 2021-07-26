@@ -1,50 +1,25 @@
-import 'package:budget_app/Database/databaseHelper.dart';
-import 'package:budget_app/model/categoryModel.dart';
+import 'package:budget_app/model/incomeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class DataCard extends StatefulWidget {
-  const DataCard({
+class IncomeDataCard extends StatefulWidget {
+  const IncomeDataCard({
     Key? key,
     required this.data,
     required this.edit,
     required this.index,
     required this.delete,
   }) : super(key: key);
-  final CategoryModel data;
+  final IncomeModel data;
   final Function edit;
   final Function delete;
   final int index;
 
   @override
-  _DataCardState createState() => _DataCardState();
+  _IncomeDataCardState createState() => _IncomeDataCardState();
 }
 
-class _DataCardState extends State<DataCard> {
-  List<CategoryModel> subCategory = [];
-
-  List<Widget> _categories = [];
-
-  late DB db;
-
-  @override
-  void initState() {
-    super.initState();
-    db = DB();
-    getSubCategory();
-  }
-
-  void getSubCategory() async {
-    subCategory = await db.getSubCategory(widget.index);
-    setState(() {
-      subCategory.forEach((category) {
-        _categories.add(ListTile(
-          title: Text(category.name),
-        ));
-      });
-    });
-  }
-
+class _IncomeDataCardState extends State<IncomeDataCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -62,7 +37,7 @@ class _DataCardState extends State<DataCard> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(3.0),
-            child: ExpansionTile(
+            child: ListTile(
               leading: CircleAvatar(
                 backgroundColor: Colors.indigo[600],
                 child: Text(
@@ -76,22 +51,22 @@ class _DataCardState extends State<DataCard> {
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.data.name,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.indigo[600]),
+                  Padding(
+                    padding: EdgeInsets.only(top: 9),
+                    child: Text(
+                      widget.data.name,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.indigo[600]),
+                    ),
                   ),
-                  Text(widget.data.desc!,
-                      style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+                  Text(
+                    widget.data.desc!,
+                    style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                  ),
                 ],
               ),
-              children: [
-                Column(
-                  children: _categories,
-                ),
-              ],
             ),
           ),
         ),

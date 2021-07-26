@@ -1,47 +1,42 @@
-final String tableCategory = 'category';
+final String tableIncome = 'income';
 
-class CategoryModel {
+class IncomeModel {
   int? id;
   String name;
   String? desc;
-  int? parentId;
   final bool isActive;
   final DateTime createdTime;
   final String createdBy;
 
-  CategoryModel(
+  IncomeModel(
       {this.id,
       required this.name,
       this.desc,
-      this.parentId,
       this.isActive = true,
       required this.createdTime,
       required this.createdBy});
 
-  CategoryModel copy({
+  IncomeModel copy({
     int? id,
     String? name,
     String? desc,
-    int? parentId,
     bool? isActive,
     DateTime? createdTime,
     String? createdBy,
   }) =>
-      CategoryModel(
+      IncomeModel(
         id: id ?? this.id,
         name: name ?? this.name,
         desc: desc ?? this.desc,
-        parentId: parentId ?? this.parentId,
         isActive: isActive ?? this.isActive,
         createdTime: createdTime ?? this.createdTime,
         createdBy: this.createdBy,
       );
 
-  factory CategoryModel.fromMap(Map<String, dynamic> json) => CategoryModel(
+  factory IncomeModel.fromMap(Map<String, dynamic> json) => IncomeModel(
         id: json["id"],
         name: json["name"],
         desc: json["desc"],
-        parentId: json["parentId"],
         isActive: json["isActive"] == 1,
         createdTime: DateTime.parse(json["createdTime"]),
         createdBy: json["createdBy"],
@@ -51,7 +46,6 @@ class CategoryModel {
         "id": id,
         "name": name,
         "desc": desc,
-        "parentId": parentId,
         "isActive": isActive ? 1 : 0,
         "createdTime": createdTime.toIso8601String(),
         "createdBy": createdBy,

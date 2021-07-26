@@ -62,6 +62,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     delete: delete,
                   )),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.indigo[600],
         onPressed: () {
           showDialouge();
         },
@@ -163,13 +164,18 @@ class _CategoryPageState extends State<CategoryPage> {
                         );
 
                         db.insertCategory(dataLocal);
-                        dataLocal.id =
-                            categories[categories.length - 1].id! + 1;
+
+                        // this code is edited By: Dinesh Gosavi On: 23-07-2021
+                        // this code was causing error to save data
+                        // dataLocal.id =
+                        //     categories[categories.length - 1].id! + 1;
+
                         setState(() {
                           categories.add(dataLocal);
                         });
                         nameController.clear();
                         descController.clear();
+
                         Navigator.pushNamed(context, MyRoutes.categoryRoute);
                       }
                     },
@@ -289,7 +295,7 @@ class _CategoryPageState extends State<CategoryPage> {
   void edit(index) {
     currentIndex = index;
     nameController.text = categories[index].name;
-    descController.text = categories[index].desc;
+    descController.text = categories[index].desc!;
     _selectedValue = categories[index].parentId;
     showUpdateDialogue();
   }

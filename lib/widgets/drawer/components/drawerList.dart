@@ -48,7 +48,7 @@ class _DrawrListState extends State<DrawrList> {
           leading: Icon(Icons.account_balance_wallet_rounded,
               color: Colors.indigo[600]),
           title: Text(
-            "Income",
+            "Income Categories",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -92,7 +92,7 @@ class _DrawrListState extends State<DrawrList> {
         ListTile(
           leading: Icon(Icons.calendar_today, color: Colors.indigo[600]),
           title: Text(
-            "My Budget",
+            "My Budgets",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,

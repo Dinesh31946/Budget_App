@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.indigo,
         fontFamily: GoogleFonts.lato().fontFamily,
       ),
-      initialRoute: MyRoutes.loginRoute,
+      initialRoute: MyRoutes.homeRoute,
       routes: {
-        "/": (context) => WelcomePage(),
+        MyRoutes.welcomeRoute: (context) => WelcomePage(),
         MyRoutes.loginRoute: (context) => LoginPage(),
         MyRoutes.signUpRoute: (context) => SignUpPage(),
         MyRoutes.homeRoute: (context) => HomePage(),
