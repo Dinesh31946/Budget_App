@@ -94,29 +94,30 @@ class _IncomeDataCardState extends State<IncomeDataCard> {
 
   void showDeleteDialogue() async {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text("Are you sure to delete this category?"),
-            actions: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: Size(30, 30), primary: Color(10)),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text("Cancel"),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(minimumSize: Size(30, 30)),
-                onPressed: () {
-                  widget.delete(widget.index);
-                  Navigator.pop(context);
-                },
-                child: Text("Delete"),
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text("Are you sure to delete this category?"),
+          actions: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: Size(30, 30), primary: Color(10)),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Cancel"),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(minimumSize: Size(30, 30)),
+              onPressed: () {
+                widget.delete(widget.index);
+                Navigator.pop(context);
+              },
+              child: Text("Delete"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

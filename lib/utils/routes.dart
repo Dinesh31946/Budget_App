@@ -5,4 +5,5 @@ class MyRoutes {
   static String homeRoute = "/home";
   static String categoryRoute = "/category";
   static String incomeRoute = "/income";
+  static String createBudgetRoute = "/createBudget";
 }

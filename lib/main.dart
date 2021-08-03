@@ -1,4 +1,5 @@
 import 'package:budget_app/pages/Categories/categoriesPage.dart';
+import 'package:budget_app/pages/CreateBudget/createBudget.dart';
 import 'package:budget_app/pages/Home/homePage.dart';
 import 'package:budget_app/pages/Income/incomePage.dart';
 import 'package:budget_app/pages/Login/login_page.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.homeRoute: (context) => HomePage(),
         MyRoutes.categoryRoute: (context) => CategoryPage(),
         MyRoutes.incomeRoute: (context) => IncomePage(),
+        MyRoutes.createBudgetRoute: (context) => CreateBudgetPage(),
       },
     );
   }

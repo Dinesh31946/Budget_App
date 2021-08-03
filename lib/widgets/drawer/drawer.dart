@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:budget_app/utils/routes.dart';
 import 'package:budget_app/widgets/drawer/components/drawerList.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,9 @@ class MyDrawer extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
                     textStyle: TextStyle(fontSize: 15),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, MyRoutes.createBudgetRoute);
+                  },
                   child: Text(
                     "Create a budget",
                     style: TextStyle(color: Colors.black),

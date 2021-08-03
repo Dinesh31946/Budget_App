@@ -1,3 +1,4 @@
+import 'package:budget_app/model/budgetModel.dart';
 import 'package:budget_app/model/categoryModel.dart';
 import 'package:budget_app/model/incomeModel.dart';
 import 'package:sqflite/sqflite.dart';
@@ -45,6 +46,21 @@ class DB {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
           desc TEXT,
+          isActive BOOLEAN NOT NULL,
+          createdTime DATETIME DEFAULT (cast(strftime('%s','now') as int)),
+          createdBy TEXT NOT NULL
+        );
+      ''');
+
+    await db.execute('''
+        CREATE TABLE $tableBudget(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          desc TEXT,
+          startDate DATETIME,
+          endDate DATETIME,
+          income DOUBLE,
+          expense DOUBLE,
           isActive BOOLEAN NOT NULL,
           createdTime DATETIME DEFAULT (cast(strftime('%s','now') as int)),
           createdBy TEXT NOT NULL
@@ -139,6 +155,19 @@ class DB {
       where: 'id = ?',
       whereArgs: [id],
     );
+  }
+
+  //Custom Budget CRUD Methods
+  Future<bool> insertBudget(BudgetModel budgetModel) async {
+    final db = await instance.database;
+    db.insert(tableBudget, budgetModel.toMap());
+    return true;
+  }
+
+  Future<List<BudgetModel>> getBudget() async {
+    final db = await instance.database;
+    final List<Map<String, Object?>> budgets = await db.query(tableBudget);
+    return budgets.map((e) => BudgetModel.fromMap(e)).toList();
   }
 
   Future close() async {
